@@ -1,0 +1,12 @@
+{
+  "workshops": [
+    { "id": 1, "title": "a title", "image": "https://robohash.org/Radionica1.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [1,2], "partnerIds": [1,2] },
+    { "id": 2, "title": "a title", "image": "https://robohash.org/Radionica2.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [1], "partnerIds": [] },
+    { "id": 3, "title": "a title", "image": "https://robohash.org/Radionica3.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [2], "partnerIds": [1] },
+    { "id": 4, "title": "a title", "image": "https://robohash.org/Radionica4.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [], "partnerIds": [2] }
+  ],
+  "presenters": [
+    { "id": 1, "name": "Omar Zunic", "image": "https://robohash.org/OmarZunic.png", "bio": "Lorem ipsum dolor sit amet", "org": "Facebook", "topics": ["React", "Express"]},
+    { "id": 2, "name": "Petar Popovic", "image": "https://robohash.org/PetarPopovic.png",  "bio": "Lorem ipsum dolor sit amet", "org": "Google", "topics": ["Sex"]}
+  ]
+}
