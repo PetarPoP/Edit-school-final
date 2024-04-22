@@ -2,8 +2,11 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/utils.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { Link } from "react-router-dom";
+import { useAdminStore } from "@/store.tsx";
 
 export function RadionicaCard({ radionica }: { radionica: Workshop }) {
+  const store = useAdminStore();
+
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/presenters",
     fetcher,
@@ -97,7 +100,14 @@ export function RadionicaCard({ radionica }: { radionica: Workshop }) {
         </div>
         <div className="flex gap-2">
           <Button>Prijavi se</Button>
-          <Button variant="secondary">Uredi</Button>
+          {store.isAdmin && (
+            <Button
+              className="animate-fade-in-up transition-all"
+              variant="secondary"
+            >
+              Uredi
+            </Button>
+          )}
         </div>
       </div>
     </div>

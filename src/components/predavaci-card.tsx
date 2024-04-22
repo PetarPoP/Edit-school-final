@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button.tsx";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils.ts";
+import { useAdminStore } from "@/store.tsx";
 
 export function PredavaciCard({ presenter }: { presenter: Presenter }) {
+  const store = useAdminStore();
   const {
     data: organizers,
     error: organizersError,
@@ -51,7 +53,14 @@ export function PredavaciCard({ presenter }: { presenter: Presenter }) {
         </div>
         <div className="flex gap-2">
           <Button>Pregledaj radionice</Button>
-          <Button variant="secondary">Uredi</Button>
+          {store.isAdmin && (
+            <Button
+              className="animate-fade-in-up transition-all"
+              variant="secondary"
+            >
+              Uredi
+            </Button>
+          )}
         </div>
       </div>
     </div>
