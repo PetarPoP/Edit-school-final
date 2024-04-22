@@ -10,6 +10,7 @@ export function Radionice() {
 
   if (error) return <div>Problem jbggggggg</div>;
   if (isLoading) return <div>Loading</div>;
+
   return (
     <div className="flex animate-fade-in-up flex-col">
       <div>

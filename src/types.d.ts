@@ -1,14 +1,14 @@
 interface Workshop {
-  id: number;
+  id: string;
   title: string;
   image: string;
   description: string;
-  presenterIds: number[];
-  partnerIds: number[];
+  presenterIds: string[];
+  partnerIds: string[];
 }
 
 interface Presenter {
-  id: number;
+  id: string;
   name: string;
   image: string;
   bio: string;
