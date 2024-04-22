@@ -48,6 +48,7 @@
     "json-server": "^1.0.0-alpha.23",
     "lucide-react": "^0.372.0",
     "next-themes": "^0.3.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.2.0",
@@ -58,6 +59,7 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "unsplash-js": "^7.0.19",
     "vaul": "^0.9.0",
     "zod": "^3.22.5"
   },

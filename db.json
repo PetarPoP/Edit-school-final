@@ -1,12 +1,26 @@
 {
   "workshops": [
-    { "id": "1", "title": "a title", "image": "https://robohash.org/Radionica1.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1", "2"], "partnerIds": ["1","2"] },
-    { "id": "2", "title": "a title", "image": "https://robohash.org/Radionica2.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1"], "partnerIds": [] },
-    { "id": "3", "title": "a title", "image": "https://robohash.org/Radionica3.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["2"], "partnerIds": ["1"] },
-    { "id": "4", "title": "a title", "image": "https://robohash.org/Radionica4.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [], "partnerIds": ["2"] }
+    { "id": "1", "title": "a title", "image": "https://robohash.org/Radionica1.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1", "2"], "organizersIds": ["1","2"], "themeIds": ["1", "2"], "difficultyIds": ["1", "2"]},
+    { "id": "2", "title": "a title", "image": "https://robohash.org/Radionica2.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1"], "organizersIds": [], "themeIds": ["1"], "difficultyIds": ["1"]},
+    { "id": "3", "title": "a title", "image": "https://robohash.org/Radionica3.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["2"], "organizersIds": ["1"], "themeIds": ["2"], "difficultyIds": ["2"]},
+    { "id": "4", "title": "a title", "image": "https://robohash.org/Radionica4.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": [], "organizersIds": ["2"], "themeIds": ["3"], "difficultyIds": ["3"]}
   ],
   "presenters": [
-    { "id": "1", "name": "Omar Zunic", "image": "https://robohash.org/OmarZunic.png", "bio": "Lorem ipsum dolor sit amet", "org": "Facebook", "topics": ["React", "Express"]},
-    { "id": "2", "name": "Petar Popovic", "image": "https://robohash.org/PetarPopovic.png",  "bio": "Lorem ipsum dolor sit amet", "org": "Google", "topics": ["Sex"]}
+    { "id": "1", "name": "Omar Zunic", "image": "https://robohash.org/OmarZunic.png", "bio": "Lorem ipsum dolor sit amet", "org": "Facebook", "topics": ["React", "Express"], "organizersIds": ["1", "2"], "themeIds": ["1", "2"]},
+    { "id": "2", "name": "Petar Popovic", "image": "https://robohash.org/PetarPopovic.png",  "bio": "Lorem ipsum dolor sit amet", "org": "Google", "topics": ["Sex"], "organizersIds": ["1"], "themeIds": ["1"]}
+  ],
+  "organizers": [
+    { "id": "1", "name": "Radionica", "bio": "Lorem ipsum dolor sit amet" },
+    { "id": "2", "name": "Codecentric", "bio": "Lorem ipsum dolor sit amet" }
+  ],
+  "themes": [
+    { "id": "1", "name": "React" },
+    { "id": "2", "name": "Express" },
+    { "id": "3", "name": "Python" }
+  ],
+  "difficulties": [
+    { "id": "1", "name": "Junior" },
+    { "id": "2", "name": "Mid" },
+    { "id": "3", "name": "Senior" }
   ]
 }

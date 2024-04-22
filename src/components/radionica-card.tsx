@@ -9,13 +9,38 @@ export function RadionicaCard({ radionica }: { radionica: Workshop }) {
     fetcher,
   );
 
-  if (error) return <div>Problem jbggggggg</div>;
-  if (isLoading) return <div>Loading</div>;
+  const {
+    data: organizers,
+    error: organizersError,
+    isLoading: organizersIsLoading,
+  } = useSWR("http://localhost:3000/organizers", fetcher);
+
+  const {
+    data: themes,
+    error: themesError,
+    isLoading: themesIsLoading,
+  } = useSWR("http://localhost:3000/themes", fetcher);
+
+  const {
+    data: difficulties,
+    error: difficultiesError,
+    isLoading: difficultiesIsLoading,
+  } = useSWR("http://localhost:3000/difficulties", fetcher);
+
+  if (error || organizersError || themesError || difficultiesError)
+    return <div>Problem jbggggggg</div>;
+  if (
+    isLoading ||
+    organizersIsLoading ||
+    themesIsLoading ||
+    difficultiesIsLoading
+  )
+    return <div>Loading</div>;
 
   return (
     <div className="flex border rounded-md overflow-hidden bg-white transition-all w-full">
-      <div>
-        <img src={radionica.image} alt="Building" className="border" />
+      <div className="min-h-72 flex justify-center items-center">
+        <img src={radionica.image} alt="what" className="border" />
       </div>
       <div className="flex p-4 gap-2 flex-col justify-between items-start">
         <div className="flex gap-2 flex-col justify-start items-start">
@@ -35,6 +60,38 @@ export function RadionicaCard({ radionica }: { radionica: Workshop }) {
                 >
                   {presenter.name}
                 </Link>
+              ))}
+          </p>
+          <p className="flex gap-1">
+            <span>Organizacija/e:</span>
+            {(organizers as Organizers[])
+              .filter((organizer) =>
+                radionica.organizersIds.includes(organizer.id),
+              )
+              .map((organizer) => (
+                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
+                  {organizer.name}
+                </span>
+              ))}
+          </p>
+          <p className="flex gap-1">
+            <span>Teme:</span>
+            {(themes as Theme[])
+              .filter((theme) => radionica.themeIds.includes(theme.id))
+              .map((theme) => (
+                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
+                  {theme.name}
+                </span>
+              ))}
+          </p>
+          <p className="flex gap-1">
+            <span>Težina:</span>
+            {(difficulties as Difficulty[])
+              .filter((diff) => radionica.difficultyIds.includes(diff.id))
+              .map((diff) => (
+                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
+                  {diff.name}
+                </span>
               ))}
           </p>
         </div>
