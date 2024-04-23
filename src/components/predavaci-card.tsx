@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button.tsx";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils.ts";
 import { useAdminStore } from "@/store.tsx";
+import { Badge } from "@/components/ui/badge.tsx";
+import { ListItem } from "@/components/list-item.tsx";
 
 export function PredavaciCard({ presenter }: { presenter: Presenter }) {
   const store = useAdminStore();
@@ -9,47 +11,45 @@ export function PredavaciCard({ presenter }: { presenter: Presenter }) {
     data: organizers,
     error: organizersError,
     isLoading: organizersIsLoading,
-  } = useSWR("http://localhost:3000/organizers", fetcher);
+  } = useSWR(`${import.meta.env.VITE_API_URL}/organizers`, fetcher);
 
   const {
-    data: themes,
-    error: themesError,
-    isLoading: themesIsLoading,
-  } = useSWR("http://localhost:3000/themes", fetcher);
+    data: topics,
+    error: topicsError,
+    isLoading: topicsIsLoading,
+  } = useSWR(`${import.meta.env.VITE_API_URL}/topics`, fetcher);
 
-  if (organizersError || themesError) return <div>Problem jbggggggg</div>;
-  if (organizersIsLoading || themesIsLoading) return <div>Loading</div>;
+  if (organizersError || topicsError) return <div>Loading</div>;
+  if (organizersIsLoading || topicsIsLoading) return <div>Loading</div>;
   return (
-    <div className="flex border rounded-md overflow-hidden bg-white transition-all w-full">
+    <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
       <div>
-        <img src={presenter.image} alt="Presenter" className="border" />
+        <img
+          src={presenter.image}
+          alt="Presenter"
+          className="border-r bg-white"
+        />
       </div>
       <div className="flex p-4 gap-2 flex-col justify-between items-start">
         <div className="flex gap-2 flex-col justify-start items-start">
           <h1 className="text-2xl font-semibold">{presenter.name}</h1>
           <p>{presenter.bio}</p>
-          <p className="flex gap-1">
-            <span>Organizacija/e:</span>
-            {(organizers as Organizers[])
-              .filter((organizer) =>
+          <ListItem title="ORGANIZACIJE">
+            {organizers
+              .filter((organizer: Organizers) =>
                 presenter.organizersIds.includes(organizer.id),
               )
-              .map((organizer) => (
-                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
-                  {organizer.name}
-                </span>
+              .map((organizer: Organizers) => (
+                <Badge key={organizer.id}>{organizer.name}</Badge>
               ))}
-          </p>
-          <p className="flex gap-1">
-            <span>Teme:</span>
-            {(themes as Theme[])
-              .filter((theme) => presenter.themeIds.includes(theme.id))
-              .map((theme) => (
-                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
-                  {theme.name}
-                </span>
+          </ListItem>
+          <ListItem title="TEME">
+            {topics
+              .filter((topic: Topics) => presenter.topicIds.includes(topic.id))
+              .map((topic: Topics) => (
+                <Badge key={topic.id}>{topic.name}</Badge>
               ))}
-          </p>
+          </ListItem>
         </div>
         <div className="flex gap-2">
           <Button>Pregledaj radionice</Button>
