@@ -13,10 +13,9 @@ interface Presenter {
   id: string;
   name: string;
   image: string;
-  bio: string;
-  org: string;
+  description: string;
   organizersIds: string[];
-  topicsIds: string[];
+  topicIds: string[];
 }
 
 interface Organizers {

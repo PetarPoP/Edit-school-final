@@ -5,7 +5,9 @@ import { useAdminStore } from "@/store.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { ListItem } from "@/components/list-item.tsx";
 
-export function PredavaciCard({ presenter }: { presenter: Presenter }) {
+export function PredavaciCard({
+  presenter,
+}: Readonly<{ presenter: Presenter }>) {
   const store = useAdminStore();
   const {
     data: organizers,
@@ -33,7 +35,7 @@ export function PredavaciCard({ presenter }: { presenter: Presenter }) {
       <div className="flex p-4 gap-2 flex-col justify-between items-start">
         <div className="flex gap-2 flex-col justify-start items-start">
           <h1 className="text-2xl font-semibold">{presenter.name}</h1>
-          <p>{presenter.bio}</p>
+          <p>{presenter.description}</p>
           <ListItem title="ORGANIZACIJE">
             {organizers
               .filter((organizer: Organizers) =>
@@ -43,10 +45,10 @@ export function PredavaciCard({ presenter }: { presenter: Presenter }) {
                 <Badge key={organizer.id}>{organizer.name}</Badge>
               ))}
           </ListItem>
-          <ListItem title="TEME">
+          <ListItem title={"Teme"}>
             {topics
-              .filter((topic: Topics) => presenter.topicIds.includes(topic.id))
-              .map((topic: Topics) => (
+              .filter((topic: Filter) => presenter.topicIds.includes(topic.id))
+              .map((topic: Filter) => (
                 <Badge key={topic.id}>{topic.name}</Badge>
               ))}
           </ListItem>

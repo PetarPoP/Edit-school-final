@@ -9,12 +9,12 @@
     { "id": "1", "name": "Omar Zunic", "image": "https://robohash.org/OmarZunic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["1", "2"], "topicIds": ["1", "2"]},
     { "id": "2", "name": "Petar Popovic", "image": "https://robohash.org/PetarPopovic.png",  "description": "Lorem ipsum dolor sit amet", "organizersIds": ["1"], "topicIds": ["1"]},
     { "id": "3", "name": "Ivan Zoric", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["2"]},
-    { "id": "4", "name": "Jozo Jozic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["3"]},
-    { "id": "5", "name": "Marko Markic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["4"]},
-    { "id": "6", "name": "Ivan Ivanic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["5"]},
-    { "id": "7", "name": "Ivo Ivic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["6"]},
-    { "id": "8", "name": "Ivan Zunic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["7"]},
-    { "id": "9", "name": "Ivan Popovic", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["8"]}
+    { "id": "4", "name": "Jozo Jozic", "image": "https://robohash.org/JozoJozic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["3"]},
+    { "id": "5", "name": "Marko Markic", "image": "https://robohash.org/MarkoMarkic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["4"]},
+    { "id": "6", "name": "Ivan Ivanic", "image": "https://robohash.org/IvanIvanic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["5"]},
+    { "id": "7", "name": "Ivo Ivic", "image": "https://robohash.org/IvoIvic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["6"]},
+    { "id": "8", "name": "Ivan Zunic", "image": "https://robohash.org/IvanZunic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["7"]},
+    { "id": "9", "name": "Ivan Popovic", "image": "https://robohash.org/IvanPopovic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["8"]}
   ],
   "organizers": [
     { "id": "1", "name": "Locastic", "description": "Locastic is a company in Split" },

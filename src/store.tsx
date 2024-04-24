@@ -18,7 +18,7 @@ interface DataStoreType {
   fetch: () => Promise<void>;
 }
 
-export const useDataStore = create<DataStoreType>((set, get) => ({
+export const useDataStore = create<DataStoreType>((set) => ({
   loading: true,
   workshops: [],
   presenters: [],

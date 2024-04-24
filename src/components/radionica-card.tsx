@@ -57,8 +57,6 @@ export function RadionicaCard({
         <div className="flex gap-2 flex-col justify-start items-start">
           <h1 className="text-2xl font-semibold">{radionica.title}</h1>
           <p>{radionica.description}</p>
-          {/*<p className="flex gap-1">*/}
-          {/*  <span>Predavač(i):</span>*/}
           <ListItem title={"Predavač(i)"}>
             {data
               .filter((presenter: Presenter) =>
