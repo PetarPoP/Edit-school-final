@@ -1,39 +1,19 @@
 import { RadionicaCard } from "../components/radionica-card.tsx";
-import useSWR from "swr";
-import { fetcher } from "@/lib/utils.ts";
 import { FilterHeader } from "@/components/filter-header.tsx";
 import { useState } from "react";
 import { PiPlus, PiWarehouseDuotone } from "react-icons/pi";
 import DialogAdd from "@/components/dialog-add.tsx";
+import { useDataStore } from "@/store.tsx";
 
 export function Radionice() {
+  const storeData = useDataStore();
   const [topics, setTopics] = useState<string[]>([]);
   const [difficulties, setDifficulties] = useState<string[]>([]);
-
-  const { data, isLoading, error } = useSWR(
-    `${import.meta.env.VITE_API_URL}/workshops`,
-    fetcher,
-  );
-
-  const {
-    data: topicsData,
-    isLoading: topicsIsLoading,
-    error: topicsIsError,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/topics`, fetcher);
-
-  const {
-    data: difficultiesData,
-    isLoading: difficultiesIsLoading,
-    error: difficultiesIsError,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/difficulties`, fetcher);
-
-  if (isLoading || topicsIsLoading || difficultiesIsLoading)
-    return <div>Loading</div>;
-  if (error || topicsIsError || difficultiesIsError) return <div>error</div>;
 
   return (
     <div className="flex animate-fade-in-up flex-col">
       <DialogAdd
+        type={2}
         ButtonText="Dodaj radionicu"
         Icon={PiWarehouseDuotone}
         IconSecondary={PiPlus}
@@ -50,7 +30,7 @@ export function Radionice() {
                   ? setTopics(topics?.filter((t) => t !== id))
                   : setTopics([...(topics ?? []), id]);
               }}
-              names={topicsData}
+              names={storeData.topics}
             />
           </div>
           <div>
@@ -61,12 +41,12 @@ export function Radionice() {
                   ? setDifficulties(difficulties?.filter((t) => t !== id))
                   : setDifficulties([...(difficulties ?? []), id]);
               }}
-              names={difficultiesData}
+              names={storeData.difficulties}
             />
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
-          {data
+          {storeData.workshops
             .filter((radionica: Workshop) => {
               if (topics.length === 0 && difficulties.length === 0) return true;
               if (topics.length > 0 && difficulties.length === 0) {

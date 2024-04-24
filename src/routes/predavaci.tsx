@@ -1,40 +1,19 @@
 import { PredavaciCard } from "@/components/predavaci-card.tsx";
-import useSWR from "swr";
-import { fetcher } from "@/lib/utils.ts";
 import { FilterHeader } from "@/components/filter-header.tsx";
 import { PiUserPlusDuotone } from "react-icons/pi";
 import { useState } from "react";
 import DialogAdd from "@/components/dialog-add.tsx";
+import { useDataStore } from "@/store.tsx";
 
 export function Predavaci() {
+  const storeData = useDataStore();
   const [topics, setTopics] = useState<string[]>([]);
   const [org, setOrg] = useState<string[]>([]);
-
-  const { data, error, isLoading } = useSWR(
-    `${import.meta.env.VITE_API_URL}/presenters`,
-    fetcher,
-  );
-
-  const {
-    data: topicsData,
-    isLoading: topicsIsLoading,
-    error: topicsIsError,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/topics`, fetcher);
-
-  const {
-    data: organizations,
-    error: organizationsError,
-    isLoading: organizationsIsLoading,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/organizers`, fetcher);
-
-  if (error || topicsIsError || organizationsError)
-    return <div>Problem jbggggggg</div>;
-  if (isLoading || topicsIsLoading || organizationsIsLoading)
-    return <div>Loading</div>;
 
   return (
     <div className="flex animate-fade-in-up flex-col">
       <DialogAdd
+        type={1}
         ButtonText="Dodaj predavača"
         Icon={PiUserPlusDuotone}
         Title="Predavač"
@@ -50,7 +29,7 @@ export function Predavaci() {
                   ? setTopics(topics?.filter((t) => t !== id))
                   : setTopics([...(topics ?? []), id]);
               }}
-              names={topicsData}
+              names={storeData.topics}
             />
           </div>
           <div>
@@ -61,12 +40,12 @@ export function Predavaci() {
                   ? setOrg(org?.filter((t) => t !== id))
                   : setOrg([...(org ?? []), id]);
               }}
-              names={organizations}
+              names={storeData.organizers}
             />
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
-          {data
+          {storeData.presenters
             .filter((presenter: Presenter) => {
               if (topics.length === 0 && org.length === 0) return true;
               if (topics.length > 0 && org.length === 0) {

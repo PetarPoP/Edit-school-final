@@ -1,8 +1,6 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/utils.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { Link } from "react-router-dom";
-import { useAdminStore } from "@/store.tsx";
+import { useAdminStore, useDataStore } from "@/store.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { ListItem } from "@/components/list-item.tsx";
 
@@ -10,39 +8,7 @@ export function RadionicaCard({
   radionica,
 }: Readonly<{ radionica: Workshop }>) {
   const store = useAdminStore();
-
-  const { data, error, isLoading } = useSWR(
-    `${import.meta.env.VITE_API_URL}/presenters`,
-    fetcher,
-  );
-
-  const {
-    data: organizers,
-    error: organizersError,
-    isLoading: organizersIsLoading,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/organizers`, fetcher);
-
-  const {
-    data: themes,
-    error: themesError,
-    isLoading: themesIsLoading,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/topics`, fetcher);
-
-  const {
-    data: difficulties,
-    error: difficultiesError,
-    isLoading: difficultiesIsLoading,
-  } = useSWR(`${import.meta.env.VITE_API_URL}/difficulties`, fetcher);
-
-  if (error || organizersError || themesError || difficultiesError)
-    return <div>Loading</div>;
-  if (
-    isLoading ||
-    organizersIsLoading ||
-    themesIsLoading ||
-    difficultiesIsLoading
-  )
-    return <div>Loading</div>;
+  const storeData = useDataStore();
 
   return (
     <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
@@ -58,7 +24,7 @@ export function RadionicaCard({
           <h1 className="text-2xl font-semibold">{radionica.title}</h1>
           <p>{radionica.description}</p>
           <ListItem title={"Predavač(i)"}>
-            {data
+            {storeData.presenters
               .filter((presenter: Presenter) =>
                 radionica.presenterIds.includes(presenter.id),
               )
@@ -72,7 +38,7 @@ export function RadionicaCard({
               ))}
           </ListItem>
           <ListItem title={"Organizacija/e"}>
-            {(organizers as Organizers[])
+            {storeData.organizers
               .filter((organizer) =>
                 radionica.organizersIds.includes(organizer.id),
               )
@@ -81,14 +47,14 @@ export function RadionicaCard({
               ))}
           </ListItem>
           <ListItem title={"Teme"}>
-            {(themes as Filter[])
-              .filter((theme) => radionica.topicIds.includes(theme.id))
-              .map((theme) => (
-                <Badge key={theme.id}>{theme.name}</Badge>
+            {storeData.topics
+              .filter((topic) => radionica.topicIds.includes(topic.id))
+              .map((topic) => (
+                <Badge key={topic.id}>{topic.name}</Badge>
               ))}
           </ListItem>
           <ListItem title={"Težina"}>
-            {(difficulties as Filter[])
+            {storeData.difficulties
               .filter((diff) => radionica.difficultyIds.includes(diff.id))
               .map((diff) => (
                 <Badge key={diff.id}>{diff.name}</Badge>

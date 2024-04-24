@@ -14,7 +14,9 @@ interface DataStoreType {
   loading: boolean;
   workshops: Workshop[];
   presenters: Presenter[];
-  filters: { name: string; filters: Filter[] }[];
+  organizers: Filter[];
+  topics: Filter[];
+  difficulties: Filter[];
   fetch: () => Promise<void>;
 }
 
@@ -22,7 +24,9 @@ export const useDataStore = create<DataStoreType>((set) => ({
   loading: true,
   workshops: [],
   presenters: [],
-  filters: [],
+  organizers: [],
+  topics: [],
+  difficulties: [],
   fetch: async () => {
     const [workshops, presenters, organizers, topics, difficulties] =
       await Promise.all([
@@ -46,23 +50,11 @@ export const useDataStore = create<DataStoreType>((set) => ({
     set({
       workshops,
       presenters,
-      filters: [
-        {
-          name: "Organizatori",
-          filters: organizers.map((filter: Filter) => filter),
-        },
-        {
-          name: "Teme",
-          filters: topics.map((filter: Filter) => filter),
-        },
-        {
-          name: "Težina",
-          filters: difficulties.map((filter: Filter) => filter),
-        },
-      ],
+      organizers,
+      topics,
+      difficulties,
     });
 
-    // Fake timeout to simulate loading
     setTimeout(() => {
       set({ loading: false });
     }, Math.random() * 1000);
