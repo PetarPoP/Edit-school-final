@@ -5,7 +5,7 @@ interface Workshop {
   description: string;
   presenterIds: string[];
   organizersIds: string[];
-  themeIds: string[];
+  topicIds: string[];
   difficultyIds: string[];
 }
 
@@ -13,11 +13,9 @@ interface Presenter {
   id: string;
   name: string;
   image: string;
-  bio: string;
-  org: string;
-  topics: string[];
+  description: string;
   organizersIds: string[];
-  themeIds: string[];
+  topicIds: string[];
 }
 
 interface Organizers {
@@ -26,12 +24,8 @@ interface Organizers {
   bio: string;
 }
 
-interface Theme {
+interface Filter {
   id: string;
   name: string;
-}
-
-interface Difficulty {
-  id: string;
-  name: string;
+  description: string;
 }

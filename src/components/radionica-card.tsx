@@ -3,12 +3,16 @@ import { fetcher } from "@/lib/utils.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { Link } from "react-router-dom";
 import { useAdminStore } from "@/store.tsx";
+import { Badge } from "@/components/ui/badge.tsx";
+import { ListItem } from "@/components/list-item.tsx";
 
-export function RadionicaCard({ radionica }: { radionica: Workshop }) {
+export function RadionicaCard({
+  radionica,
+}: Readonly<{ radionica: Workshop }>) {
   const store = useAdminStore();
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/presenters",
+    `${import.meta.env.VITE_API_URL}/presenters`,
     fetcher,
   );
 
@@ -16,22 +20,22 @@ export function RadionicaCard({ radionica }: { radionica: Workshop }) {
     data: organizers,
     error: organizersError,
     isLoading: organizersIsLoading,
-  } = useSWR("http://localhost:3000/organizers", fetcher);
+  } = useSWR(`${import.meta.env.VITE_API_URL}/organizers`, fetcher);
 
   const {
     data: themes,
     error: themesError,
     isLoading: themesIsLoading,
-  } = useSWR("http://localhost:3000/themes", fetcher);
+  } = useSWR(`${import.meta.env.VITE_API_URL}/topics`, fetcher);
 
   const {
     data: difficulties,
     error: difficultiesError,
     isLoading: difficultiesIsLoading,
-  } = useSWR("http://localhost:3000/difficulties", fetcher);
+  } = useSWR(`${import.meta.env.VITE_API_URL}/difficulties`, fetcher);
 
   if (error || organizersError || themesError || difficultiesError)
-    return <div>Problem jbggggggg</div>;
+    return <div>Loading</div>;
   if (
     isLoading ||
     organizersIsLoading ||
@@ -41,62 +45,55 @@ export function RadionicaCard({ radionica }: { radionica: Workshop }) {
     return <div>Loading</div>;
 
   return (
-    <div className="flex border rounded-md overflow-hidden bg-white transition-all w-full">
-      <div className="min-h-72 flex justify-center items-center">
-        <img src={radionica.image} alt="what" className="border" />
+    <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
+      <div className="min-h-72 h-full flex justify-center items-center">
+        <img
+          src={radionica.image}
+          alt="what"
+          className="border-r h-full aspect-square object-cover bg-white"
+        />
       </div>
       <div className="flex p-4 gap-2 flex-col justify-between items-start">
         <div className="flex gap-2 flex-col justify-start items-start">
           <h1 className="text-2xl font-semibold">{radionica.title}</h1>
           <p>{radionica.description}</p>
-          <p className="flex gap-1">
-            <span>Predavač(i):</span>
-            {(data as Presenter[])
-              .filter((presenter) =>
+          <ListItem title={"Predavač(i)"}>
+            {data
+              .filter((presenter: Presenter) =>
                 radionica.presenterIds.includes(presenter.id),
               )
-              .map((presenter) => (
+              .map((presenter: Presenter) => (
                 <Link
                   to={`/predavaci/${presenter.id}`}
                   key={`${presenter.id}-${radionica.id}`}
-                  className="bg-gray-200 px-1 py-0.5 hover:bg-gray-300 transition-all rounded-md border"
                 >
-                  {presenter.name}
+                  <Badge>{presenter.name}</Badge>
                 </Link>
               ))}
-          </p>
-          <p className="flex gap-1">
-            <span>Organizacija/e:</span>
+          </ListItem>
+          <ListItem title={"Organizacija/e"}>
             {(organizers as Organizers[])
               .filter((organizer) =>
                 radionica.organizersIds.includes(organizer.id),
               )
               .map((organizer) => (
-                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
-                  {organizer.name}
-                </span>
+                <Badge key={organizer.id}>{organizer.name}</Badge>
               ))}
-          </p>
-          <p className="flex gap-1">
-            <span>Teme:</span>
-            {(themes as Theme[])
-              .filter((theme) => radionica.themeIds.includes(theme.id))
+          </ListItem>
+          <ListItem title={"Teme"}>
+            {(themes as Filter[])
+              .filter((theme) => radionica.topicIds.includes(theme.id))
               .map((theme) => (
-                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
-                  {theme.name}
-                </span>
+                <Badge key={theme.id}>{theme.name}</Badge>
               ))}
-          </p>
-          <p className="flex gap-1">
-            <span>Težina:</span>
-            {(difficulties as Difficulty[])
+          </ListItem>
+          <ListItem title={"Težina"}>
+            {(difficulties as Filter[])
               .filter((diff) => radionica.difficultyIds.includes(diff.id))
               .map((diff) => (
-                <span className="bg-gray-200 px-1 py-0.5 rounded-md border">
-                  {diff.name}
-                </span>
+                <Badge key={diff.id}>{diff.name}</Badge>
               ))}
-          </p>
+          </ListItem>
         </div>
         <div className="flex gap-2">
           <Button>Prijavi se</Button>

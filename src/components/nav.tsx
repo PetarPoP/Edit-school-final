@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils.ts";
 import { Switch } from "@/components/ui/switch.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { useAdminStore } from "@/store.tsx";
+import { ModeToggle } from "@/components/mode-toggle.tsx";
+import React from "react";
 
 const links = [
   {
@@ -23,7 +25,7 @@ const links = [
 export function Nav({
   className,
   ...props
-}: React.HTMLAttributes<HTMLElement>) {
+}: Readonly<React.HTMLAttributes<HTMLElement>>) {
   const location = useLocation();
   const store = useAdminStore();
 
@@ -53,7 +55,9 @@ export function Nav({
             </Link>
           ))}
       </div>
+
       <div className="flex w-fit items-center space-x-2">
+        <ModeToggle />
         <Switch id="admin" onCheckedChange={store.setIsAdmin} />
         <Label htmlFor="admin">Admin</Label>
       </div>
