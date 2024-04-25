@@ -1,48 +1,484 @@
 {
   "workshops": [
-    { "id": "1", "title": "React DEV", "image": "https://robohash.org/Radionica1.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1", "2"], "organizersIds": ["1"], "topicIds": ["1", "2"], "difficultyIds": ["1", "2"]},
-    { "id": "2", "title": "Express DEV", "image": "https://robohash.org/Radionica2.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["1"], "organizersIds": ["4"], "topicIds": ["1"], "difficultyIds": ["1"]},
-    { "id": "3", "title": "Python DEV", "image": "https://robohash.org/Radionica3.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["2"], "organizersIds": ["1"], "topicIds": ["2"], "difficultyIds": ["2"]},
-    { "id": "4", "title": "C++ DEV", "image": "https://robohash.org/Radionica4.png", "description": "Lorem ipsum dolor sit amet", "presenterIds": ["3"], "organizersIds": ["2"], "topicIds": ["3"], "difficultyIds": ["3"]}
+    {
+      "id": "1",
+      "title": "React DEV",
+      "image": "https://robohash.org/Radionica1.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "date": "1. 1. 2003",
+      "presenterIds": [
+        "1",
+        "2"
+      ],
+      "organizersId": "1",
+      "topicIds": [
+        "1",
+        "2"
+      ],
+      "difficultyId": "1",
+      "num_of_participants": 0
+    },
+    {
+      "id": "2",
+      "title": "Express DEV",
+      "image": "https://robohash.org/Radionica2.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "date": "21. 10. 2003",
+      "presenterIds": [
+        "1"
+      ],
+      "organizersId": "4",
+      "topicIds": [
+        "1"
+      ],
+      "difficultyId": "1",
+      "num_of_participants": 0
+    },
+    {
+      "id": "3",
+      "title": "Python DEV",
+      "image": "https://robohash.org/Radionica3.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "date": "20.2.2003",
+      "presenterIds": [
+        "2"
+      ],
+      "organizersId": "1",
+      "topicIds": [
+        "2"
+      ],
+      "difficultyId": "2",
+      "num_of_participants": 0
+    },
+    {
+      "id": "4",
+      "title": "C++ DEV",
+      "image": "https://robohash.org/Radionica4.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "date": "13.7.2003",
+      "presenterIds": [
+        "3"
+      ],
+      "organizersId": "2",
+      "topicIds": [
+        "3"
+      ],
+      "difficultyId": "3",
+      "num_of_participants": 0
+    },
+    {
+      "id": "45ab93a9-0ebf-4443-a134-ad6679ab9681",
+      "title": "TEST",
+      "description": "AWA",
+      "topicIds": [
+        "2"
+      ],
+      "num_of_participants": 0,
+      "difficultyId": "2",
+      "organizersId": "3",
+      "presenterIds": [
+        "1"
+      ],
+      "image": "https://robohash.org/45ab93a9-0ebf-4443-a134-ad6679ab9681",
+      "date": "24. 04. 2024."
+    },
+    {
+      "id": "63d7f3df-8669-4bd0-8899-82a0100e00b7",
+      "title": "meliha",
+      "description": "meliha",
+      "topicIds": [
+        "1"
+      ],
+      "num_of_participants": 0,
+      "difficultyId": "1",
+      "organizersId": "2",
+      "presenterIds": [
+        "1"
+      ],
+      "date": "11. 04. 2024.",
+      "image": "https://robohash.org/63d7f3df-8669-4bd0-8899-82a0100e00b7"
+    },
+    {
+      "id": "63d7f3df-8669-4bd0-8899-82a0100e00b7",
+      "title": "meliha 2",
+      "description": "meliha 2",
+      "topicIds": [
+        "1"
+      ],
+      "num_of_participants": 0,
+      "difficultyId": "1",
+      "organizersId": "2",
+      "presenterIds": [
+        "1"
+      ],
+      "date": "11. 04. 2024.",
+      "image": "https://robohash.org/63d7f3df-8669-4bd0-8899-82a0100e00b7"
+    },
+    {
+      "id": "8efe6ed5-428b-4436-9c4d-a343748ffcc0",
+      "title": "Test broj prisutnih",
+      "description": "lolololo",
+      "topicIds": [
+        "9"
+      ],
+      "difficultyId": "3",
+      "organizersId": "5",
+      "presenterIds": [
+        "8"
+      ],
+      "date": "Thu Apr 25 2024 11:39:08 GMT+0200 (srednjoeuropsko ljetno vrijeme)",
+      "image": "https://robohash.org/8efe6ed5-428b-4436-9c4d-a343748ffcc0"
+    },
+    {
+      "id": "309d2724-aa32-4147-8cfe-f9f3a7575e11",
+      "title": "sdfsfs",
+      "description": "sdfsdfsd",
+      "topicIds": [
+        "10"
+      ],
+      "difficultyId": "2",
+      "organizersId": "3",
+      "presenterIds": [
+        "3"
+      ],
+      "num_of_participants": 0,
+      "date": "02. 04. 2024.",
+      "image": "https://robohash.org/309d2724-aa32-4147-8cfe-f9f3a7575e11"
+    },
+    {
+      "id": "309d2724-aa32-4147-8cfe-f9f3a7575e11",
+      "title": "sdfsfs",
+      "description": "sdfsdfsd",
+      "topicIds": [
+        "10",
+        "9",
+        "6",
+        "5"
+      ],
+      "difficultyId": "3",
+      "organizersId": "6",
+      "presenterIds": [
+        "3",
+        "9"
+      ],
+      "num_of_participants": 0,
+      "date": "Mon Feb 26 2024 00:00:00 GMT+0100 (srednjoeuropsko standardno vrijeme)",
+      "image": "https://robohash.org/309d2724-aa32-4147-8cfe-f9f3a7575e11"
+    },
+    {
+      "id": "7f756bcf-806c-4387-b120-cb628335fb5b",
+      "title": "adsa",
+      "description": "asdasd",
+      "topicIds": [
+        "7"
+      ],
+      "difficultyId": "2",
+      "organizersId": "4",
+      "presenterIds": [
+        "6"
+      ],
+      "num_of_participants": 0,
+      "date": "Tue Feb 27 2024 00:00:00 GMT+0100 (srednjoeuropsko standardno vrijeme)",
+      "image": "https://robohash.org/7f756bcf-806c-4387-b120-cb628335fb5b"
+    },
+    {
+      "id": "ec9cb809-904a-4183-aaf8-415b44dc086b",
+      "title": "asdadaadas",
+      "description": "adasdada",
+      "topicIds": [
+        "7"
+      ],
+      "difficultyId": "2",
+      "organizersId": "3",
+      "presenterIds": [
+        "6"
+      ],
+      "num_of_participants": 0,
+      "date": "Mon Apr 08 2024 00:00:00 GMT+0200 (srednjoeuropsko ljetno vrijeme)",
+      "image": "https://robohash.org/ec9cb809-904a-4183-aaf8-415b44dc086b"
+    },
+    {
+      "id": "e92bb53c-c1c8-4033-b731-a8d79550ecc8",
+      "title": "asda",
+      "description": "asdaasdasd",
+      "topicIds": [
+        "5"
+      ],
+      "difficultyId": "3",
+      "organizersId": "4",
+      "presenterIds": [
+        "8"
+      ],
+      "num_of_participants": 0,
+      "date": "2/25/2024",
+      "image": "https://robohash.org/e92bb53c-c1c8-4033-b731-a8d79550ecc8"
+    },
+    {
+      "id": "f3591c0a-b1d4-4929-91c9-98b8a9d85806",
+      "title": "molim te radi",
+      "description": "plssss",
+      "topicIds": [
+        "2"
+      ],
+      "difficultyId": "3",
+      "organizersId": "6",
+      "presenterIds": [
+        "869fc0d1-0d53-4e9b-9671-28110e8beb39"
+      ],
+      "num_of_participants": 0,
+      "date": "Tue Mar 05 2024 00:00:00 GMT+0100 (srednjoeuropsko standardno vrijeme)",
+      "image": "https://robohash.org/f3591c0a-b1d4-4929-91c9-98b8a9d85806"
+    }
   ],
   "presenters": [
-    { "id": "1", "name": "Omar Zunic", "image": "https://robohash.org/OmarZunic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["1", "2"], "topicIds": ["1", "2"]},
-    { "id": "2", "name": "Petar Popovic", "image": "https://robohash.org/PetarPopovic.png",  "description": "Lorem ipsum dolor sit amet", "organizersIds": ["1"], "topicIds": ["1"]},
-    { "id": "3", "name": "Ivan Zoric", "image": "https://robohash.org/IvanZoric.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["2"]},
-    { "id": "4", "name": "Jozo Jozic", "image": "https://robohash.org/JozoJozic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["3"]},
-    { "id": "5", "name": "Marko Markic", "image": "https://robohash.org/MarkoMarkic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["4"]},
-    { "id": "6", "name": "Ivan Ivanic", "image": "https://robohash.org/IvanIvanic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["5"]},
-    { "id": "7", "name": "Ivo Ivic", "image": "https://robohash.org/IvoIvic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["6"]},
-    { "id": "8", "name": "Ivan Zunic", "image": "https://robohash.org/IvanZunic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["7"]},
-    { "id": "9", "name": "Ivan Popovic", "image": "https://robohash.org/IvanPopovic.png", "description": "Lorem ipsum dolor sit amet", "organizersIds": ["2"], "topicIds": ["8"]}
+    {
+      "id": "1",
+      "name": "Omar Zunic",
+      "image": "https://robohash.org/OmarZunic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": "1",
+      "topicIds": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Petar Popovic",
+      "image": "https://robohash.org/PetarPopovic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "1"
+      ],
+      "topicIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Ivan Zoric",
+      "image": "https://robohash.org/IvanZoric.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Jozo Jozic",
+      "image": "https://robohash.org/JozoJozic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Marko Markic",
+      "image": "https://robohash.org/MarkoMarkic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Ivan Ivanic",
+      "image": "https://robohash.org/IvanIvanic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Ivo Ivic",
+      "image": "https://robohash.org/IvoIvic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Ivan Zunic",
+      "image": "https://robohash.org/IvanZunic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Ivan Popovic",
+      "image": "https://robohash.org/IvanPopovic.png",
+      "description": "Lorem ipsum dolor sit amet",
+      "organizersId": [
+        "2"
+      ],
+      "topicIds": [
+        "8"
+      ]
+    },
+    {
+      "id": "d4be1546-504a-4bb5-b610-66f1c3aa2eed",
+      "name": "Jozic Joza",
+      "image": "https://robohash.org/d4be1546-504a-4bb5-b610-66f1c3aa2eed",
+      "description": "Nesto mu je bilo",
+      "organizersId": "8",
+      "topicIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "869fc0d1-0d53-4e9b-9671-28110e8beb39",
+      "name": "Lucija Ivišić",
+      "image": "https://robohash.org/869fc0d1-0d53-4e9b-9671-28110e8beb39",
+      "description": "Zivcan vozac",
+      "organizersId": "3",
+      "topicIds": [
+        "3",
+        "6"
+      ]
+    }
   ],
   "organizers": [
-    { "id": "1", "name": "Locastic", "description": "Locastic is a company in Split" },
-    { "id": "2", "name": "Digitalna dalmacija", "description": "Digitalna dalmacija is a company in Split" },
-    { "id": "3", "name": "Google", "description": "Google is a company in USA"},
-    { "id": "4", "name": "Facebook", "description": "Facebook is a company in USA"},
-    { "id": "5", "name": "Microsoft", "description": "Microsoft is a company in USA"},
-    { "id": "6", "name": "Apple", "description": "Apple is a company in USA"},
-    { "id": "7", "name": "Amazon", "description": "Amazon is a company in USA"},
-    { "id": "8", "name": "Netflix", "description": "Netflix is a company in USA"},
-    { "id": "9", "name": "Spotify", "description": "Spotify is a company in USA"},
-    { "id": "10", "name": "Tesla", "description": "Tesla is a company in USA"}
+    {
+      "id": "1",
+      "name": "Locastic",
+      "description": "Locastic is a company in Split"
+    },
+    {
+      "id": "2",
+      "name": "Digitalna dalmacija",
+      "description": "Digitalna dalmacija is a company in Split"
+    },
+    {
+      "id": "3",
+      "name": "Google",
+      "description": "Google is a company in USA"
+    },
+    {
+      "id": "4",
+      "name": "Facebook",
+      "description": "Facebook is a company in USA"
+    },
+    {
+      "id": "5",
+      "name": "Microsoft",
+      "description": "Microsoft is a company in USA"
+    },
+    {
+      "id": "6",
+      "name": "Apple",
+      "description": "Apple is a company in USA"
+    },
+    {
+      "id": "7",
+      "name": "Amazon",
+      "description": "Amazon is a company in USA"
+    },
+    {
+      "id": "8",
+      "name": "Netflix",
+      "description": "Netflix is a company in USA"
+    },
+    {
+      "id": "9",
+      "name": "Spotify",
+      "description": "Spotify is a company in USA"
+    },
+    {
+      "id": "10",
+      "name": "Tesla",
+      "description": "Tesla is a company in USA"
+    }
   ],
   "topics": [
-    { "id": "1", "name": "React", "description": "React is a JS library for frontend"},
-    { "id": "2", "name": "Express", "description": "Express is a backend framework for Node.js"},
-    { "id": "3", "name": "Python", "description": "Pyton is slow"},
-    { "id": "4", "name": "Java", "description": "Java is a language for Android"},
-    { "id": "5", "name": "C#", "description": "C# is a language for Windows"},
-    { "id": "6", "name": "C++", "description": "C++ is a language for games"},
-    { "id": "7", "name": "PHP", "description": "PHP is a language for websites"},
-    { "id": "8", "name": "Ruby", "description": "Ruby is a language for Ruby on Rails"},
-    { "id": "9", "name": "Swift", "description": "Swift is a language for iOS"},
-    { "id": "10", "name": "Kotlin", "description": "Kotlin is a language for Android"}
+    {
+      "id": "1",
+      "name": "React",
+      "description": "React is a JS library for frontend"
+    },
+    {
+      "id": "2",
+      "name": "Express",
+      "description": "Express is a backend framework for Node.js"
+    },
+    {
+      "id": "3",
+      "name": "Python",
+      "description": "Pyton is slow"
+    },
+    {
+      "id": "4",
+      "name": "Java",
+      "description": "Java is a language for Android"
+    },
+    {
+      "id": "5",
+      "name": "C#",
+      "description": "C# is a language for Windows"
+    },
+    {
+      "id": "6",
+      "name": "C++",
+      "description": "C++ is a language for games"
+    },
+    {
+      "id": "7",
+      "name": "PHP",
+      "description": "PHP is a language for websites"
+    },
+    {
+      "id": "8",
+      "name": "Ruby",
+      "description": "Ruby is a language for Ruby on Rails"
+    },
+    {
+      "id": "9",
+      "name": "Swift",
+      "description": "Swift is a language for iOS"
+    },
+    {
+      "id": "10",
+      "name": "Kotlin",
+      "description": "Kotlin is a language for Android"
+    }
   ],
   "difficulties": [
-    { "id": "1", "name": "Junior", "description": "Junior is a beginner"},
-    { "id": "2", "name": "Mid", "description": "Mid is a middle"},
-    { "id": "3", "name": "Senior", "description": "Senior is a pro"}
+    {
+      "id": "1",
+      "name": "Junior",
+      "description": "Junior is a beginner"
+    },
+    {
+      "id": "2",
+      "name": "Mid",
+      "description": "Mid is a middle"
+    },
+    {
+      "id": "3",
+      "name": "Senior",
+      "description": "Senior is a pro"
+    }
   ]
 }

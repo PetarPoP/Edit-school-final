@@ -3,10 +3,12 @@ interface Workshop {
   title: string;
   image: string;
   description: string;
+  date: string;
   presenterIds: string[];
-  organizersIds: string[];
+  organizersId: string;
   topicIds: string[];
-  difficultyIds: string[];
+  difficultyId: string;
+  num_of_participants: number;
 }
 
 interface Presenter {
@@ -14,7 +16,7 @@ interface Presenter {
   name: string;
   image: string;
   description: string;
-  organizersIds: string[];
+  organizersId: string;
   topicIds: string[];
 }
 

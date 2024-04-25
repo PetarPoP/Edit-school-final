@@ -55,8 +55,11 @@ export const useDataStore = create<DataStoreType>((set) => ({
       difficulties,
     });
 
-    setTimeout(() => {
-      set({ loading: false });
-    }, Math.random() * 1000);
+    setTimeout(
+      () => {
+        set({ loading: false });
+      },
+      Math.random() * 1000 + 2000,
+    );
   },
 }));
