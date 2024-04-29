@@ -177,19 +177,16 @@ export function Predavaci() {
                   }
                   console.log("here we go");
 
-                  const resp = await fetch(
-                    `${import.meta.env.VITE_API_URL}/presenters`,
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        ...newPresenter,
-                        image: `https://robohash.org/${newPresenter.id}`,
-                      }),
+                  const resp = await fetch(`http://localhost:3000/presenters`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
                     },
-                  );
+                    body: JSON.stringify({
+                      ...newPresenter,
+                      image: `https://robohash.org/${newPresenter.id}`,
+                    }),
+                  });
 
                   if (!resp.ok) {
                     toast.error("Problem pri dodavanju");

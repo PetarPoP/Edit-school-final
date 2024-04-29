@@ -50,7 +50,7 @@ export function Radionice() {
     difficultyId: "",
     organizersId: "",
     presenterIds: [],
-    num_of_participants: 0,
+    num_of_participants: [],
     date: new Date().toString(),
   });
 
@@ -265,19 +265,16 @@ export function Radionice() {
                     return;
                   }
 
-                  const resp = await fetch(
-                    `${import.meta.env.VITE_API_URL}/workshops`,
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        ...newWorkshop,
-                        image: `https://robohash.org/${newWorkshop.id}`,
-                      }),
+                  const resp = await fetch(`http://localhost:3000/workshops`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
                     },
-                  );
+                    body: JSON.stringify({
+                      ...newWorkshop,
+                      image: `https://robohash.org/${newWorkshop.id}`,
+                    }),
+                  });
 
                   if (!resp.ok) {
                     toast.error("Problem pri dodavanju");
@@ -294,7 +291,7 @@ export function Radionice() {
                     difficultyId: "",
                     organizersId: "",
                     presenterIds: [],
-                    num_of_participants: 0,
+                    num_of_participants: [],
                     date: new Date().toString(),
                   });
                 }}

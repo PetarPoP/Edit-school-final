@@ -50,7 +50,7 @@ export function AdministracijaDataTable({ id }: { id: string }) {
     organizersId: "",
     topicIds: [],
     difficultyId: "",
-    num_of_participants: 0,
+    num_of_participants: [],
   });
 
   const [toUpdateOrganizer, setToUpdateOrganizer] = useState<Filter>({
@@ -71,7 +71,7 @@ export function AdministracijaDataTable({ id }: { id: string }) {
   return (
     <div>
       {id === "1" && (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 transition-all animate-fade-in-up">
           {storeData.workshops.map((workshop) => {
             return (
               <div
@@ -396,7 +396,7 @@ export function AdministracijaDataTable({ id }: { id: string }) {
         </div>
       )}
       {id === "2" && (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 transition-all animate-fade-in-up">
           {storeData.organizers.map((org) => {
             return (
               <div
@@ -554,7 +554,7 @@ export function AdministracijaDataTable({ id }: { id: string }) {
         </div>
       )}
       {id === "3" && (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 transition-all animate-fade-in-up">
           {storeData.presenters.map((presenter) => {
             return (
               <div

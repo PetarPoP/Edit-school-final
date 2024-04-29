@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button.tsx";
-import { Link } from "react-router-dom";
 import { useAdminStore, useDataStore } from "@/store.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { ListItem } from "@/components/list-item.tsx";
@@ -41,6 +40,10 @@ export function RadionicaCard({
   const [signUp, setSignUp] = useState(false);
   const [thanks, setThanks] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedPresenter, setSelectedPresenter] = useState<Presenter | null>(
+    null,
+  );
 
   const workshopIndex = storeData.workshops.findIndex(
     (workshop) => workshop.id === radionica.id,
@@ -52,6 +55,54 @@ export function RadionicaCard({
 
   return (
     <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
+      <Credenza open={dialogOpen} onOpenChange={setDialogOpen}>
+        <CredenzaContent className="min-w-[550px]">
+          <CredenzaHeader className="flex justify-center items-center uppercase">
+            <CredenzaTitle>{selectedPresenter?.name}</CredenzaTitle>
+          </CredenzaHeader>
+          <div className="flex flex-row gap-4">
+            <img
+              src={selectedPresenter?.image}
+              alt="Presenter"
+              className="border-r bg-white flex rounded w-[170px] h-[170px] object-cover"
+            />
+            <div className="flex flex-col justify-center gap-3">
+              <div className="h-[50%] w-full whitespace-nowrap overflow-hidden text-wrap">
+                {selectedPresenter?.description}
+              </div>
+              <div className="flex flex-col gap-3">
+                <ListItem title={"ORGANIZACIJA"}>
+                  {storeData.organizers
+                    .filter((organizer: Filter) =>
+                      selectedPresenter?.organizersId.includes(organizer.id),
+                    )
+                    .map((organizer: Filter) => (
+                      <Badge key={organizer.id}>{organizer.name}</Badge>
+                    ))}
+                </ListItem>
+                <ListItem title={"Teme"}>
+                  {storeData.topics
+                    .filter((topic: Filter) =>
+                      selectedPresenter?.topicIds.includes(topic.id),
+                    )
+                    .map((topic: Filter) => (
+                      <Badge key={topic.id}>{topic.name}</Badge>
+                    ))}
+                </ListItem>
+              </div>
+            </div>
+          </div>
+          <CredenzaFooter>
+            <Button
+              onClick={() => {
+                setDialogOpen(false);
+              }}
+            >
+              Zatvori
+            </Button>
+          </CredenzaFooter>
+        </CredenzaContent>
+      </Credenza>
       <div className="min-h-72 h-full flex justify-center items-center">
         <img
           src={radionica.image}
@@ -76,13 +127,16 @@ export function RadionicaCard({
                 radionica.presenterIds.includes(presenter.id),
               )
               .map((presenter: Presenter) => (
-                <Link
-                  to={`/predavaci/${presenter.id}`}
+                <span
                   key={`${presenter.id}-${radionica.id}`}
                   className="transition-all dark:hover:bg-white/10 hover:bg-black/10 rounded"
+                  onClick={() => {
+                    setSelectedPresenter(presenter);
+                    setDialogOpen(true);
+                  }}
                 >
                   <Badge>{presenter.name}</Badge>
-                </Link>
+                </span>
               ))}
           </ListItem>
           <ListItem title={"Organizacija"}>
@@ -148,16 +202,34 @@ export function RadionicaCard({
                 />
               </div>
               <div>
-                <h1 className="text-lg font-bold flex justify-center items-center">
-                  Prijavljeni
-                </h1>
-                <div className="flex flex-wrap">
-                  {radionica.num_of_participants.map((participant, index) => (
-                    <p className="pr-4" key={index}>
-                      {participant}
-                    </p>
-                  ))}
-                </div>
+                {store.isAdmin && (
+                  <>
+                    <h1 className="text-lg font-bold flex justify-center items-center">
+                      Prijavljeni
+                    </h1>
+                    <div className="flex flex-wrap">
+                      {radionica.num_of_participants.map(
+                        (participant, index) => (
+                          <p className="pr-4" key={index}>
+                            {participant}
+                          </p>
+                        ),
+                      )}
+                    </div>
+                  </>
+                )}
+                {!store.isAdmin && (
+                  <p className="text-center">
+                    {radionica.num_of_participants.length > 0 ? (
+                      <span>
+                        Prijavilo se {radionica.num_of_participants.length}{" "}
+                        korisnika
+                      </span>
+                    ) : (
+                      <span>Još se nitko nije prijavio</span>
+                    )}
+                  </p>
+                )}
               </div>
               <CredenzaFooter>
                 <Button
