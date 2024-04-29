@@ -8,7 +8,7 @@ interface Workshop {
   organizersId: string;
   topicIds: string[];
   difficultyId: string;
-  num_of_participants: number;
+  num_of_participants: string[];
 }
 
 interface Presenter {

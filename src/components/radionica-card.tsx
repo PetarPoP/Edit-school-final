@@ -107,7 +107,7 @@ export function RadionicaCard({
               ))}
           </ListItem>
           <ListItem title={"Broj prijava"}>
-            <Badge>{radionica.num_of_participants}</Badge>
+            <Badge>{radionica.num_of_participants.length}</Badge>
           </ListItem>
         </div>
         <div className="flex gap-2">
@@ -147,6 +147,18 @@ export function RadionicaCard({
                   className="col-span-3 h-24 resize-none text-left"
                 />
               </div>
+              <div>
+                <h1 className="text-lg font-bold flex justify-center items-center">
+                  Prijavljeni
+                </h1>
+                <div className="flex flex-wrap">
+                  {radionica.num_of_participants.map((participant, index) => (
+                    <p className="pr-4" key={index}>
+                      {participant}
+                    </p>
+                  ))}
+                </div>
+              </div>
               <CredenzaFooter>
                 <Button
                   onClick={async () => {
@@ -170,7 +182,7 @@ export function RadionicaCard({
                     );
                     const updatedWorkshop = storeData.workshops[workshopIndex];
 
-                    updatedWorkshop.num_of_participants += 1;
+                    updatedWorkshop.num_of_participants.push(name);
 
                     const resp = await fetch(
                       `http://localhost:3000/workshops/${radionica.id}`,

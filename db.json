@@ -15,7 +15,10 @@
         "1"
       ],
       "difficultyId": "1",
-      "num_of_participants": 1
+      "num_of_participants": [
+        "Petar Popovic",
+        "Omar Zunic"
+      ]
     },
     {
       "id": "3",
@@ -33,7 +36,7 @@
         "3"
       ],
       "difficultyId": "2",
-      "num_of_participants": 1
+      "num_of_participants": []
     },
     {
       "id": "4",
@@ -49,7 +52,7 @@
         "3"
       ],
       "difficultyId": "3",
-      "num_of_participants": 0
+      "num_of_participants": []
     }
   ],
   "presenters": [
