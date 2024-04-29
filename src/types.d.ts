@@ -20,12 +20,6 @@ interface Presenter {
   topicIds: string[];
 }
 
-interface Organizers {
-  id: string;
-  name: string;
-  bio: string;
-}
-
 interface Filter {
   id: string;
   name: string;

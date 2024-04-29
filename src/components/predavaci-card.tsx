@@ -11,6 +11,26 @@ import {
   CredenzaTitle,
   CredenzaTrigger,
 } from "@/components/ui/credenza.tsx";
+import { Label } from "@/components/ui/label.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
+import { toast } from "sonner";
+import {
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select.tsx";
+import { Select } from "@radix-ui/react-select";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.tsx";
 
 export function PredavaciCard({
   presenter,
@@ -18,6 +38,15 @@ export function PredavaciCard({
   const store = useAdminStore();
   const storeData = useDataStore();
   const [viewPresenter, setViewPresenter] = useState(false);
+  const [editPresenter, setEditPresenter] = useState(false);
+
+  const presenterIndex = storeData.presenters.findIndex(
+    (pres) => pres.id === presenter.id,
+  );
+
+  const [toUpdatePresenter, setToUpdatePresenter] = useState(
+    storeData.presenters[presenterIndex],
+  );
 
   return (
     <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
@@ -104,12 +133,158 @@ export function PredavaciCard({
             </CredenzaContent>
           </Credenza>
           {store.isAdmin && (
-            <Button
-              className="animate-fade-in-up transition-all"
-              variant="secondary"
-            >
-              Uredi
-            </Button>
+            <Credenza open={editPresenter} onOpenChange={setEditPresenter}>
+              <CredenzaTrigger asChild>
+                <Button
+                  className="animate-fade-in-up transition-all hover:font-bold"
+                  variant={"secondary"}
+                >
+                  Uredi
+                </Button>
+              </CredenzaTrigger>
+              <CredenzaContent className="min-w-[525px]">
+                <CredenzaHeader className="flex justify-center items-center uppercase">
+                  <CredenzaTitle>{presenter.name}</CredenzaTitle>
+                </CredenzaHeader>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="name">Ime i prezime</Label>
+                  <Input
+                    type="text"
+                    id="name"
+                    value={toUpdatePresenter.name}
+                    onChange={(e) =>
+                      setToUpdatePresenter({
+                        ...toUpdatePresenter,
+                        name: e.target.value,
+                      })
+                    }
+                    placeholder="Puno ime"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="bio">Opis predavača</Label>
+                  <Textarea
+                    id="bio"
+                    placeholder="Opis predavača"
+                    value={toUpdatePresenter.description}
+                    onChange={(e) =>
+                      setToUpdatePresenter({
+                        ...toUpdatePresenter,
+                        description: e.target.value,
+                      })
+                    }
+                    className="col-span-3 h-24 resize-none text-left"
+                  />
+                </div>
+                <div className="flex justify-center items-center gap-4">
+                  <Select
+                    onValueChange={(value) => {
+                      setToUpdatePresenter({
+                        ...toUpdatePresenter,
+                        organizersId: value ?? "",
+                      });
+                    }}
+                  >
+                    <SelectTrigger className="w-1/2">
+                      <SelectValue placeholder="Odaberite organizaciju" />
+                    </SelectTrigger>
+                    <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                      <SelectGroup>
+                        {storeData.organizers.map((org) => (
+                          <SelectItem key={org.id} value={org.id}>
+                            {org.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild={true}>
+                      <Button className="w-1/2 text-left" variant="outline">
+                        Odaberite Temu
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 h-56 overflow-y-scroll">
+                      <DropdownMenuLabel>Tema</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {storeData.topics.map((value) => (
+                        <DropdownMenuCheckboxItem
+                          key={`${value.id}-${value.name}`}
+                          onCheckedChange={(checked) => {
+                            setToUpdatePresenter({
+                              ...toUpdatePresenter,
+                              topicIds: checked
+                                ? [
+                                    ...(toUpdatePresenter.topicIds ?? []),
+                                    value.id,
+                                  ]
+                                : toUpdatePresenter.topicIds?.filter(
+                                    (id) => id !== value.id,
+                                  ),
+                            });
+                          }}
+                          checked={toUpdatePresenter.topicIds?.includes(
+                            value.id,
+                          )}
+                          onSelect={(e) => e.preventDefault()}
+                        >
+                          {value.name}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+                <CredenzaFooter>
+                  <Button
+                    onClick={async () => {
+                      if (!toUpdatePresenter.organizersId) {
+                        toast.error("Molimo odaberite organizaciju");
+                        return;
+                      }
+                      if (!toUpdatePresenter.topicIds) {
+                        toast.error("Molimo odaberite temu");
+                        return;
+                      }
+
+                      const nameInput = document.getElementById(
+                        "name",
+                      ) as HTMLInputElement;
+
+                      const name = nameInput.value;
+
+                      if (!name) {
+                        toast.error("Molimo unesite ime");
+                        return;
+                      }
+
+                      const resp = await fetch(
+                        `http://localhost:3000/presenters/${presenter.id}`,
+                        {
+                          method: "PATCH",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify(toUpdatePresenter),
+                        },
+                      );
+
+                      if (!resp.ok) {
+                        toast.error("Greška prilikom prijave na radionicu");
+                      } else {
+                        await storeData.fetch();
+                        toast.success(
+                          "Uspiješno ste se prijavili na radionicu",
+                        );
+                        setViewPresenter(false);
+                      }
+                    }}
+                  >
+                    Potvrdi promjene
+                  </Button>
+                </CredenzaFooter>
+              </CredenzaContent>
+            </Credenza>
           )}
         </div>
       </div>

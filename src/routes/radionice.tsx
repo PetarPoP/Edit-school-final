@@ -1,5 +1,4 @@
 import { RadionicaCard } from "../components/radionica-card.tsx";
-import { FilterHeader } from "@/components/filter-header.tsx";
 import { useState } from "react";
 import { PiPlus, PiWarehouseDuotone } from "react-icons/pi";
 import { useAdminStore, useDataStore } from "@/store.tsx";
@@ -33,21 +32,14 @@ import {
 } from "@/components/ui/select.tsx";
 import { Select } from "@radix-ui/react-select";
 import { toast } from "sonner";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils.ts";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 
 export function Radionice() {
   const store = useAdminStore();
   const storeData = useDataStore();
   const [topics, setTopics] = useState<string[]>([]);
   const [difficulties, setDifficulties] = useState<string[]>([]);
+  const [organizers, setOrganizers] = useState<string[]>([]);
+  const [presenters, setPresenters] = useState<string[]>([]);
   const [addWorkshopDialogOpen, setAddWorkshopDialogOpen] = useState(false);
 
   const [newWorkshop, setNewWorkshop] = useState<Partial<Workshop>>({
@@ -66,7 +58,8 @@ export function Radionice() {
     <div className="flex animate-fade-in-up flex-col">
       <div
         data-active={store.isAdmin}
-        className="flex w-full items-center justify-end py-4 h-fit opacity-0 pointer-events-none  data-[active=true]:pointer-events-auto data-[active=true]:opacity-100 transition-all"
+        className="flex w-full items-center justify-end py-4 h-fit opacity-0 pointer-events-none
+        data-[active=true]:pointer-events-auto data-[active=true]:opacity-100 transition-all"
       >
         <Credenza
           open={addWorkshopDialogOpen}
@@ -112,40 +105,20 @@ export function Radionice() {
                 }
               />
             </div>
-            <div className="flex justify-center items-center flex-col gap-2">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-[280px] justify-start text-left font-normal",
-                      !newWorkshop.date && "text-muted-foreground",
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {newWorkshop.date ? (
-                      format(newWorkshop.date, "dd-MM-yyyy")
-                    ) : (
-                      <span>Pick a date</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={
-                      newWorkshop.date ? new Date(newWorkshop.date) : new Date()
-                    }
-                    onSelect={(date) => {
-                      setNewWorkshop({
-                        ...newWorkshop,
-                        date: date?.toString(),
-                      });
-                    }}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+            <div className="flex justify-cente flex-col gap-2">
+              <Label htmlFor="date">Datum</Label>
+              <Input
+                type="date"
+                id="date"
+                placeholder="Datum"
+                className="col-span-3"
+                onChange={(e) => {
+                  setNewWorkshop({
+                    ...newWorkshop,
+                    date: new Date(e.target.value).toLocaleDateString(),
+                  });
+                }}
+              />
             </div>
             <div className="flex w-full gap-4">
               <Select
@@ -164,9 +137,9 @@ export function Radionice() {
                 </SelectTrigger>
                 <SelectContent className="w-56 max-h-56 overflow-y-scroll">
                   <SelectGroup>
-                    {storeData.difficulties.map((org) => (
-                      <SelectItem key={org.id} value={org.id}>
-                        {org.name}
+                    {storeData.difficulties.map((diff) => (
+                      <SelectItem key={diff.id} value={diff.id}>
+                        {diff.name}
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -260,7 +233,6 @@ export function Radionice() {
               <Button
                 type="button"
                 onClick={async () => {
-                  console.log("wtf");
                   if (!newWorkshop.title) {
                     toast.error("Naslov je obavezan");
                     return;
@@ -293,8 +265,6 @@ export function Radionice() {
                     return;
                   }
 
-                  console.log("here we go");
-
                   const resp = await fetch(
                     `${import.meta.env.VITE_API_URL}/workshops`,
                     {
@@ -316,6 +286,17 @@ export function Radionice() {
                     toast.success("Dodano");
                   }
                   setAddWorkshopDialogOpen(false);
+                  setNewWorkshop({
+                    id: crypto.randomUUID(),
+                    title: "",
+                    description: "",
+                    topicIds: [],
+                    difficultyId: "",
+                    organizersId: "",
+                    presenterIds: [],
+                    num_of_participants: 0,
+                    date: new Date().toString(),
+                  });
                 }}
               >
                 Spremi
@@ -324,53 +305,148 @@ export function Radionice() {
           </CredenzaContent>
         </Credenza>
       </div>
-      <div className="flex flex-row">
-        <div className="flex flex-col w-[10vw] gap-8">
+      <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col w-full md:w-fit gap-8 pr-8">
           <div>
-            <h1 className="mb-2 text-lg">Teme</h1>
-            <FilterHeader
-              onFilter={(id) => {
-                topics?.includes(id)
-                  ? setTopics(topics?.filter((t) => t !== id))
-                  : setTopics([...(topics ?? []), id]);
+            <h1 className="mb-2 text-lg">Predavači</h1>
+            <Select
+              onValueChange={(id) => {
+                if (id === "All") {
+                  setPresenters([]);
+                  return;
+                } else {
+                  setPresenters([id]);
+                }
               }}
-              names={storeData.topics}
-            />
+            >
+              <SelectTrigger className="w-full md:w-[150px]">
+                <SelectValue placeholder="Sve" />
+              </SelectTrigger>
+              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                <SelectGroup>
+                  <SelectItem key="all" value="All">
+                    {" "}
+                    Sve{" "}
+                  </SelectItem>
+                  {storeData.presenters.map((presenter) => (
+                    <SelectItem key={presenter.id} value={presenter.id}>
+                      {presenter.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <div>
-            <h1 className="mb-2 text-lg">Težine</h1>
-            <FilterHeader
-              onFilter={(id) => {
-                difficulties?.includes(id)
-                  ? setDifficulties(difficulties?.filter((t) => t !== id))
-                  : setDifficulties([...(difficulties ?? []), id]);
+            <h1 className="mb-2 text-lg">Teme</h1>
+            <Select
+              onValueChange={(id) => {
+                if (id === "All") {
+                  setTopics([]);
+                  return;
+                } else {
+                  setTopics([id]);
+                }
               }}
-              names={storeData.difficulties}
-            />
+            >
+              <SelectTrigger className="w-full md:w-[150px]">
+                <SelectValue placeholder="Sve" />
+              </SelectTrigger>
+              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                <SelectGroup>
+                  <SelectItem key="all" value="All">
+                    {" "}
+                    Sve{" "}
+                  </SelectItem>
+                  {storeData.topics.map((topic) => (
+                    <SelectItem key={topic.id} value={topic.id}>
+                      {topic.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <h1 className="mb-2 text-lg">Organizatori</h1>
+            <Select
+              onValueChange={(id) => {
+                if (id === "All") {
+                  setOrganizers([]);
+                  return;
+                } else {
+                  setOrganizers([id]);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full md:w-[150px]">
+                <SelectValue placeholder="Sve" />
+              </SelectTrigger>
+              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                <SelectGroup>
+                  <SelectItem key="all" value="All">
+                    {" "}
+                    Sve{" "}
+                  </SelectItem>
+                  {storeData.organizers.map((organizer) => (
+                    <SelectItem key={organizer.id} value={organizer.id}>
+                      {organizer.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="md:pb-0 pb-8">
+            <h1 className="mb-2 text-lg">Težine</h1>
+            <Select
+              onValueChange={(id) => {
+                if (id === "All") {
+                  setDifficulties([]);
+                  return;
+                } else {
+                  setDifficulties([id]);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full md:w-[150px] text-center">
+                <SelectValue className="text-center" placeholder="Sve" />
+              </SelectTrigger>
+              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                <SelectGroup>
+                  <SelectItem key="All" value="All">
+                    {" "}
+                    Sve{" "}
+                  </SelectItem>
+                  {storeData.difficulties.map((diff) => (
+                    <SelectItem key={diff.id} value={diff.id}>
+                      {diff.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
           {storeData.workshops
             .filter((radionica: Workshop) => {
-              if (topics.length === 0 && difficulties.length === 0) return true;
-              if (topics.length > 0 && difficulties.length === 0) {
-                return topics.some((topic) =>
-                  radionica.topicIds.includes(topic),
-                );
-              }
-              if (topics.length === 0 && difficulties.length > 0) {
-                return difficulties.some((difficulty) =>
-                  radionica.difficultyId.includes(difficulty),
-                );
-              }
-              if (topics.length > 0 && difficulties.length > 0) {
-                return (
-                  topics.some((topic) => radionica.topicIds.includes(topic)) &&
+              return (
+                (topics.length === 0 ||
+                  topics.some((topic) => radionica.topicIds.includes(topic))) &&
+                (difficulties.length === 0 ||
                   difficulties.some((difficulty) =>
                     radionica.difficultyId.includes(difficulty),
-                  )
-                );
-              }
+                  )) &&
+                (organizers.length === 0 ||
+                  organizers.some((organizer) =>
+                    radionica.organizersId.includes(organizer),
+                  )) &&
+                (presenters.length === 0 ||
+                  presenters.some((presenter) =>
+                    radionica.presenterIds.includes(presenter),
+                  ))
+              );
             })
             .map((radionica: Workshop) => (
               <RadionicaCard key={radionica.id} radionica={radionica} />
