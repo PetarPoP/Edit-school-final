@@ -30,21 +30,11 @@ export const useDataStore = create<DataStoreType>((set) => ({
   fetch: async () => {
     const [workshops, presenters, organizers, topics, difficulties] =
       await Promise.all([
-        fetch(`${import.meta.env.VITE_API_URL}/workshops`).then((res) =>
-          res.json(),
-        ),
-        fetch(`${import.meta.env.VITE_API_URL}/presenters`).then((res) =>
-          res.json(),
-        ),
-        fetch(`${import.meta.env.VITE_API_URL}/organizers`).then((res) =>
-          res.json(),
-        ),
-        fetch(`${import.meta.env.VITE_API_URL}/topics`).then((res) =>
-          res.json(),
-        ),
-        fetch(`${import.meta.env.VITE_API_URL}/difficulties`).then((res) =>
-          res.json(),
-        ),
+        fetch(`http://localhost:3000/workshops`).then((res) => res.json()),
+        fetch(`http://localhost:3000/presenters`).then((res) => res.json()),
+        fetch(`http://localhost:3000/organizers`).then((res) => res.json()),
+        fetch(`http://localhost:3000/topics`).then((res) => res.json()),
+        fetch(`http://localhost:3000/difficulties`).then((res) => res.json()),
       ]);
 
     set({
