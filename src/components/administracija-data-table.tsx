@@ -82,7 +82,7 @@ export function AdministracijaDataTable({ id }: { id: string }) {
                 <div className="w-full">{workshop.description}</div>
                 <div className="w-full">{workshop.date}</div>
                 <div className="w-full">
-                  Broj prijava: {workshop.num_of_participants}
+                  Broj prijava: {workshop.num_of_participants.length}
                 </div>
                 <div>
                   <Credenza
