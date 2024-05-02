@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select.tsx";
 import { Select } from "@radix-ui/react-select";
-import { DodajRadionicu } from "@/components/logika-radionicu.tsx";
+import { DodajRadionicu } from "@/components/logika-radionici.tsx";
 
 export function Radionice() {
   const store = useAdminStore();

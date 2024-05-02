@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea.tsx";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { PiSpinner } from "react-icons/pi";
-import { UrediRadionicu } from "@/components/logika-radionicu.tsx";
+import { UrediRadionicu } from "@/components/logika-radionici.tsx";
 
 function RadionicaCardSkeleton() {
   return (
