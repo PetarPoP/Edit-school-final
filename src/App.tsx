@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { useDataStore } from "@/store.tsx";
 import { useEffect } from "react";
-import { PiSpinner } from "react-icons/pi";
 import { Toaster } from "sonner";
 
 export default function App() {
@@ -27,13 +26,7 @@ export default function App() {
         </div>
         <div className="w-full flex p-8 pt-0 justify-center">
           <div className="w-full flex flex-col gap-8">
-            {data.loading ? (
-              <div className="h-[calc(100dvh-120px)] w-full flex items-center justify-center">
-                <PiSpinner className="animate-spin w-24 h-24" />
-              </div>
-            ) : (
-              <Outlet />
-            )}
+            <Outlet />
           </div>
         </div>
       </ThemeProvider>

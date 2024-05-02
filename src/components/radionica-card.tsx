@@ -15,22 +15,23 @@ import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
 import { toast } from "sonner";
-import { Select } from "@radix-ui/react-select";
-import {
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu.tsx";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
+import { PiSpinner } from "react-icons/pi";
+import { UrediRadionicu } from "@/components/logika-radionicu.tsx";
+
+function RadionicaCardSkeleton() {
+  return (
+    <div className="flex border rounded-md overflow-hidden w-full">
+      <Skeleton className="border-r w-[300px] h-[340px] aspect-square"></Skeleton>
+      <div className="flex p-4 gap-2 flex-col justify-center items-center size-full relative">
+        <PiSpinner className="size-16 animate-spin absolute"></PiSpinner>
+        <div className="flex gap-2 h-full w-full justify-start items-end opacity-10 animate-pulse">
+          <Button disabled className="w-20"></Button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function RadionicaCard({
   radionica,
@@ -39,22 +40,17 @@ export function RadionicaCard({
   const storeData = useDataStore();
   const [signUp, setSignUp] = useState(false);
   const [thanks, setThanks] = useState(false);
-  const [edit, setEdit] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedPresenter, setSelectedPresenter] = useState<Presenter | null>(
     null,
   );
 
-  const workshopIndex = storeData.workshops.findIndex(
-    (workshop) => workshop.id === radionica.id,
-  );
-
-  const [toUpdateWorkshop, setToUpdateWorkshop] = useState(
-    storeData.workshops[workshopIndex],
-  );
+  if (storeData.loading) {
+    return <RadionicaCardSkeleton />;
+  }
 
   return (
-    <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white transition-all w-full">
+    <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white animate-fade-in-up transition-all w-full">
       <Credenza open={dialogOpen} onOpenChange={setDialogOpen}>
         <CredenzaContent className="min-w-[550px]">
           <CredenzaHeader className="flex justify-center items-center uppercase">
@@ -129,7 +125,7 @@ export function RadionicaCard({
               .map((presenter: Presenter) => (
                 <span
                   key={`${presenter.id}-${radionica.id}`}
-                  className="transition-all dark:hover:bg-white/10 hover:bg-black/10 rounded"
+                  className="transition-all dark:hover:bg-white/20 hover:bg-black/10 rounded cursor-pointer"
                   onClick={() => {
                     setSelectedPresenter(presenter);
                     setDialogOpen(true);
@@ -303,248 +299,7 @@ export function RadionicaCard({
               </CredenzaContent>
             </Credenza>
           </div>
-          {store.isAdmin && (
-            <Credenza open={edit} onOpenChange={setEdit}>
-              <CredenzaTrigger asChild>
-                <Button
-                  className="animate-fade-in-up transition-all"
-                  variant={"secondary"}
-                >
-                  Uredi
-                </Button>
-              </CredenzaTrigger>
-              <CredenzaContent className="min-w-[525px]">
-                <CredenzaHeader className="flex justify-center items-center uppercase">
-                  <CredenzaTitle>{radionica.title}</CredenzaTitle>
-                </CredenzaHeader>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name">Naziv radionice</Label>
-                  <Input
-                    type="text"
-                    id="name"
-                    value={toUpdateWorkshop.title}
-                    onChange={(e) => {
-                      setToUpdateWorkshop({
-                        ...toUpdateWorkshop,
-                        title: e.target.value,
-                      });
-                    }}
-                    placeholder="Puni naziv radionice"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="bio">Opis radionice</Label>
-                  <Textarea
-                    id="bio"
-                    value={toUpdateWorkshop.description}
-                    onChange={(e) => {
-                      setToUpdateWorkshop({
-                        ...toUpdateWorkshop,
-                        description: e.target.value,
-                      });
-                    }}
-                    placeholder="Opis radionice"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="flex justify-cente flex-col gap-2">
-                  <Label htmlFor="date">Datum</Label>
-                  <Input
-                    type="date"
-                    id="date"
-                    placeholder="Datum"
-                    className="col-span-3"
-                    onChange={(e) => {
-                      setToUpdateWorkshop({
-                        ...toUpdateWorkshop,
-                        date: new Date(e.target.value).toLocaleDateString(),
-                      });
-                    }}
-                  />
-                </div>
-                <div className="flex w-full gap-4">
-                  <Select
-                    onValueChange={(value) => {
-                      setToUpdateWorkshop({
-                        ...toUpdateWorkshop,
-                        difficultyId: value ?? "",
-                      });
-                    }}
-                  >
-                    <SelectTrigger className="w-1/2 text-center">
-                      <SelectValue
-                        className="text-center"
-                        placeholder="Odaberite težinu"
-                      />
-                    </SelectTrigger>
-                    <SelectContent className="w-56 max-h-56 overflow-y-scroll">
-                      <SelectGroup>
-                        {storeData.difficulties.map((diff) => (
-                          <SelectItem key={diff.id} value={diff.id}>
-                            {diff.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <Select
-                    onValueChange={(value) => {
-                      setToUpdateWorkshop({
-                        ...toUpdateWorkshop,
-                        organizersId: value ?? "",
-                      });
-                    }}
-                  >
-                    <SelectTrigger className="w-1/2">
-                      <SelectValue placeholder="Odaberite organizaciju" />
-                    </SelectTrigger>
-                    <SelectContent className="w-56 max-h-56 overflow-y-scroll">
-                      <SelectGroup>
-                        {storeData.organizers.map((org) => (
-                          <SelectItem key={org.id} value={org.id}>
-                            {org.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex justify-center items-center gap-4">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild={true}>
-                      <Button className="w-1/2 text-left" variant="outline">
-                        Odaberite Temu
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 h-56 overflow-y-scroll">
-                      <DropdownMenuLabel>Tema</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {storeData.topics.map((value) => (
-                        <DropdownMenuCheckboxItem
-                          key={`${value.id}-${value.name}`}
-                          onCheckedChange={(checked) => {
-                            setToUpdateWorkshop({
-                              ...toUpdateWorkshop,
-                              topicIds: checked
-                                ? [
-                                    ...(toUpdateWorkshop.topicIds ?? []),
-                                    value.id,
-                                  ]
-                                : toUpdateWorkshop.topicIds?.filter(
-                                    (id) => id !== value.id,
-                                  ),
-                            });
-                          }}
-                          checked={toUpdateWorkshop.topicIds?.includes(
-                            value.id,
-                          )}
-                          onSelect={(e) => e.preventDefault()}
-                        >
-                          {value.name}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild={true}>
-                      <Button className="w-1/2" variant="outline">
-                        Odaberite Predavače
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 h-56 overflow-y-scroll">
-                      <DropdownMenuLabel>Predavači</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {storeData.presenters.map((value) => (
-                        <DropdownMenuCheckboxItem
-                          key={`${value.id}-${value.name}`}
-                          onCheckedChange={(checked) => {
-                            setToUpdateWorkshop({
-                              ...toUpdateWorkshop,
-                              presenterIds: checked
-                                ? [
-                                    ...(toUpdateWorkshop.presenterIds ?? []),
-                                    value.id,
-                                  ]
-                                : toUpdateWorkshop.presenterIds?.filter(
-                                    (id) => id !== value.id,
-                                  ),
-                            });
-                          }}
-                          checked={toUpdateWorkshop.presenterIds?.includes(
-                            value.id,
-                          )}
-                          onSelect={(e) => e.preventDefault()}
-                        >
-                          {value.name}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                <CredenzaFooter>
-                  <Button
-                    onClick={async () => {
-                      if (!toUpdateWorkshop.title) {
-                        toast.error("Naslov je obavezan");
-                        return;
-                      }
-                      if (!toUpdateWorkshop.description) {
-                        toast.error("Opis je obavezan");
-                        return;
-                      }
-                      if (
-                        !toUpdateWorkshop.topicIds ||
-                        toUpdateWorkshop.topicIds.length === 0
-                      ) {
-                        toast.error("Morate odabrati barem jednu temu");
-                        return;
-                      }
-                      if (!toUpdateWorkshop.difficultyId) {
-                        toast.error("Razina težine je obavezna");
-                        return;
-                      }
-
-                      if (!toUpdateWorkshop.organizersId) {
-                        toast.error("ID organizatora je obavezan");
-                        return;
-                      }
-                      if (
-                        !toUpdateWorkshop.presenterIds ||
-                        toUpdateWorkshop.presenterIds.length === 0
-                      ) {
-                        toast.error("Morate odabrati barem jednog predavača");
-                        return;
-                      }
-
-                      const resp = await fetch(
-                        `http://localhost:3000/workshops/${radionica.id}`,
-                        {
-                          method: "PATCH",
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                          body: JSON.stringify(toUpdateWorkshop),
-                        },
-                      );
-
-                      if (!resp.ok) {
-                        toast.error("Greška prilikom prijave na radionicu");
-                      } else {
-                        await storeData.fetch();
-                        toast.success(
-                          "Uspiješno ste se prijavili na radionicu",
-                        );
-                        setSignUp(false);
-                      }
-                    }}
-                  >
-                    Potvrdi promjene
-                  </Button>
-                </CredenzaFooter>
-              </CredenzaContent>
-            </Credenza>
-          )}
+          {store.isAdmin && <UrediRadionicu workshop={radionica} />}
         </div>
       </div>
     </div>

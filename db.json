@@ -17,7 +17,8 @@
       "difficultyId": "1",
       "num_of_participants": [
         "Petar Popovic",
-        "Omar Zunic"
+        "Omar Zunic",
+        "Filip "
       ]
     },
     {
@@ -53,6 +54,26 @@
       ],
       "difficultyId": "3",
       "num_of_participants": []
+    },
+    {
+      "id": "d1c3e43f-babc-4e22-8353-4fa290526ca3",
+      "title": "React DEV",
+      "description": "Tecaj React programskog jezika",
+      "topicIds": [
+        "1"
+      ],
+      "difficultyId": "3",
+      "organizersId": "2",
+      "presenterIds": [
+        "4",
+        "5",
+        "6"
+      ],
+      "num_of_participants": [
+        "Petar Popovic"
+      ],
+      "date": "05. 05. 2024.",
+      "image": "https://robohash.org/d1c3e43f-babc-4e22-8353-4fa290526ca3"
     }
   ],
   "presenters": [
