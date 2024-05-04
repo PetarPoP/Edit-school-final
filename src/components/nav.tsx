@@ -4,6 +4,7 @@ import { Switch } from "@/components/ui/switch.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { useAdminStore } from "@/store.tsx";
 import { ModeToggle } from "@/components/mode-toggle.tsx";
+import { useEffect } from "react";
 
 const links = [
   {
@@ -28,6 +29,12 @@ export function Nav({
   const location = useLocation();
   const store = useAdminStore();
 
+  useEffect(() => {
+    if (!store.isAdmin && location.pathname === "/administracija") {
+      window.location.href = "/radionice";
+    }
+  }, [store.isAdmin, location.pathname]);
+
   return (
     <nav
       className={cn(
@@ -38,7 +45,9 @@ export function Nav({
     >
       <div className="flex gap-4 transition-all w-fit border-b-2 md:border-b-0 items-center justify-center overflow-x-auto overflow-y-hidden">
         {links
-          .filter(({ adminOnly }) => !adminOnly || (adminOnly && store.isAdmin))
+          .filter(
+            ({ adminOnly }) => !adminOnly || (adminOnly && store.isVisible),
+          )
           .map(({ href, name }) => (
             <Link
               key={`${href}-${name}`}
@@ -47,6 +56,8 @@ export function Nav({
                 "animate-fade-in-up text-lg font-monospace font-medium duration-100 text-center rounded-md opacity-80 transition-all py-4 hover:opacity-90",
                 {
                   "font-bold opacity-100": location.pathname === href,
+                  "animate-fade-out-up":
+                    !store.isAdmin && name === "Administracija",
                 },
               )}
             >

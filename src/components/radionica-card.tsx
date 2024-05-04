@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { PiSpinner } from "react-icons/pi";
 import { UrediRadionicu } from "@/components/logika-radionici.tsx";
+import { cn } from "@/lib/utils.ts";
 
 function RadionicaCardSkeleton() {
   return (
@@ -114,7 +115,7 @@ export function RadionicaCard({
             {storeData.workshops
               .filter((workshop) => workshop.id === radionica.id)
               .map((workshop) => (
-                <Badge>{workshop.date}</Badge>
+                <Badge key={workshop.id}>{workshop.date}</Badge>
               ))}
           </ListItem>
           <ListItem title={"Predavač(i)"}>
@@ -299,7 +300,9 @@ export function RadionicaCard({
               </CredenzaContent>
             </Credenza>
           </div>
-          {store.isAdmin && <UrediRadionicu workshop={radionica} />}
+          <div className={cn({ "animate-fade-out-up": !store.isAdmin })}>
+            {store.isVisible && <UrediRadionicu workshop={radionica} />}
+          </div>
         </div>
       </div>
     </div>

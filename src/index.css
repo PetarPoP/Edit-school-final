@@ -89,3 +89,19 @@
 .animate-fade-in-up {
   animation: animate-fade-in-up 0.3s ease-out;
 }
+
+@keyframes animate-fade-out-up {
+  from {
+
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+.animate-fade-out-up {
+  animation: animate-fade-out-up 0.3s ease-out;
+}

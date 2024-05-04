@@ -1,13 +1,24 @@
-import create from "zustand";
+import { create } from "zustand";
 
 interface AdminStoreType {
   isAdmin: boolean;
+  isVisible: boolean;
   setIsAdmin: (isAdmin: boolean) => void;
 }
 
 export const useAdminStore = create<AdminStoreType>((set) => ({
   isAdmin: false,
-  setIsAdmin: (isAdmin: boolean) => set({ isAdmin }),
+  isVisible: false,
+  setIsAdmin: (isAdmin: boolean) => {
+    set({ isAdmin });
+    if (isAdmin) {
+      set({ isVisible: true });
+    } else {
+      setTimeout(() => {
+        set({ isVisible: false });
+      }, 150);
+    }
+  },
 }));
 
 interface DataStoreType {

@@ -14,6 +14,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { PiSpinner } from "react-icons/pi";
 import { UrediPredavaca } from "@/components/logika-predavaci.tsx";
+import { cn } from "@/lib/utils.ts";
 
 function PredavaciCardSkeleton() {
   return (
@@ -124,7 +125,9 @@ export function PredavaciCard({
               </CredenzaFooter>
             </CredenzaContent>
           </Credenza>
-          {store.isAdmin && <UrediPredavaca presenter={presenter} />}
+          <div className={cn({ "animate-fade-out-up": !store.isAdmin })}>
+            {store.isVisible && <UrediPredavaca presenter={presenter} />}
+          </div>
         </div>
       </div>
     </div>

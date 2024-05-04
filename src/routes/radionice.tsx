@@ -31,36 +31,6 @@ export function Radionice() {
       <div className="flex flex-col md:flex-row">
         <div className="flex flex-col w-full md:w-fit gap-8 pr-8">
           <div>
-            <h1 className="mb-2 text-lg">Predavači</h1>
-            <Select
-              onValueChange={(id) => {
-                if (id === "All") {
-                  setPresenters([]);
-                  return;
-                } else {
-                  setPresenters([id]);
-                }
-              }}
-            >
-              <SelectTrigger className="w-full md:w-[150px]">
-                <SelectValue placeholder="Sve" />
-              </SelectTrigger>
-              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
-                <SelectGroup>
-                  <SelectItem key="all" value="All">
-                    {" "}
-                    Sve{" "}
-                  </SelectItem>
-                  {storeData.presenters.map((presenter) => (
-                    <SelectItem key={presenter.id} value={presenter.id}>
-                      {presenter.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
             <h1 className="mb-2 text-lg">Teme</h1>
             <Select
               onValueChange={(id) => {
@@ -91,7 +61,7 @@ export function Radionice() {
             </Select>
           </div>
           <div>
-            <h1 className="mb-2 text-lg">Organizatori</h1>
+            <h1 className="mb-2 text-lg">Organizacije</h1>
             <Select
               onValueChange={(id) => {
                 if (id === "All") {
@@ -114,6 +84,36 @@ export function Radionice() {
                   {storeData.organizers.map((organizer) => (
                     <SelectItem key={organizer.id} value={organizer.id}>
                       {organizer.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <h1 className="mb-2 text-lg">Predavači</h1>
+            <Select
+              onValueChange={(id) => {
+                if (id === "All") {
+                  setPresenters([]);
+                  return;
+                } else {
+                  setPresenters([id]);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full md:w-[150px]">
+                <SelectValue placeholder="Sve" />
+              </SelectTrigger>
+              <SelectContent className="w-56 max-h-56 overflow-y-scroll">
+                <SelectGroup>
+                  <SelectItem key="all" value="All">
+                    {" "}
+                    Sve{" "}
+                  </SelectItem>
+                  {storeData.presenters.map((presenter) => (
+                    <SelectItem key={presenter.id} value={presenter.id}>
+                      {presenter.name}
                     </SelectItem>
                   ))}
                 </SelectGroup>

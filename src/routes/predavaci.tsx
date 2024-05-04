@@ -21,7 +21,7 @@ export function Predavaci() {
     <div className="flex animate-fade-in-up flex-col">
       <div
         data-active={store.isAdmin}
-        className="flex w-full items-center justify-end py-4 h-fit opacity-0 pointer-events-none  data-[active=true]:pointer-events-auto data-[active=true]:opacity-100 transition-all"
+        className="flex w-full items-center justify-end py-4 h-fit opacity-0 pointer-events-none data-[active=true]:pointer-events-auto data-[active=true]:opacity-100 transition-all"
       >
         <DodajPredavaca />
       </div>
@@ -58,7 +58,7 @@ export function Predavaci() {
             </Select>
           </div>
           <div className="md:pb-0 pb-8">
-            <h1 className="mb-2">Organizacije</h1>
+            <h1 className="mb-2 text-lg">Organizacije</h1>
             <Select
               onValueChange={(id) => {
                 if (id === "All") {
