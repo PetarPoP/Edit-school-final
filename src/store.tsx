@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AdminStoreType {
   isAdmin: boolean;
@@ -6,20 +7,27 @@ interface AdminStoreType {
   setIsAdmin: (isAdmin: boolean) => void;
 }
 
-export const useAdminStore = create<AdminStoreType>((set) => ({
-  isAdmin: false,
-  isVisible: false,
-  setIsAdmin: (isAdmin: boolean) => {
-    set({ isAdmin });
-    if (isAdmin) {
-      set({ isVisible: true });
-    } else {
-      setTimeout(() => {
-        set({ isVisible: false });
-      }, 150);
-    }
-  },
-}));
+export const useAdminStore = create(
+  persist<AdminStoreType>(
+    (set) => ({
+      isAdmin: false,
+      isVisible: false,
+      setIsAdmin: (isAdmin: boolean) => {
+        set({ isAdmin });
+        if (isAdmin) {
+          set({ isVisible: true });
+        } else {
+          setTimeout(() => {
+            set({ isVisible: false });
+          }, 150);
+        }
+      },
+    }),
+    {
+      name: "AdminStorage",
+    },
+  ),
+);
 
 interface DataStoreType {
   loading: boolean;

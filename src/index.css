@@ -70,6 +70,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -92,7 +93,6 @@
 
 @keyframes animate-fade-out-up {
   from {
-
     opacity: 1;
     transform: translateY(0rem);
   }

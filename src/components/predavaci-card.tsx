@@ -42,7 +42,7 @@ export function PredavaciCard({
   }
 
   return (
-    <div className="flex border rounded-md overflow-hidden bg-white dark:bg-black/30 dark:text-white animate-fade-in-up transition-all w-full">
+    <div className="flex border rounded-md min-h-[250px] overflow-hidden bg-white dark:bg-black/30 dark:text-white animate-fade-in-up transition-all w-full">
       <div>
         <img
           src={presenter.image}

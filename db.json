@@ -26,18 +26,21 @@
       "title": "Python DEV",
       "image": "https://robohash.org/Radionica3.png",
       "description": "Lorem ipsum dolor sit amet",
-      "date": "30. 04. 2024.",
+      "date": "24. 05. 2024.",
       "presenterIds": [
         "2",
-        "5"
+        "5",
+        "8"
       ],
-      "organizersId": "8",
+      "organizersId": "7",
       "topicIds": [
         "2",
         "3"
       ],
       "difficultyId": "2",
-      "num_of_participants": []
+      "num_of_participants": [
+        "Josip Lovric"
+      ]
     },
     {
       "id": "4",
@@ -46,7 +49,8 @@
       "description": "Lorem ipsum dolor sit amet",
       "date": "13. 7. 2003",
       "presenterIds": [
-        "3"
+        "3",
+        "6"
       ],
       "organizersId": "2",
       "topicIds": [
