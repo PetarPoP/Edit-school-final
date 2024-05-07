@@ -122,7 +122,12 @@ export function UrediOrganizatora({ org }: { org: Filter }) {
       }}
     >
       <CredenzaTrigger asChild>
-        <Button className="animate-fade-in-up transition-all">Uredi</Button>
+        <Button
+          className="animate-fade-in-up transition-all"
+          variant="secondary"
+        >
+          Uredi
+        </Button>
       </CredenzaTrigger>
       <CredenzaContent className="min-w-[525px]">
         <CredenzaHeader className="flex justify-center items-center uppercase">
