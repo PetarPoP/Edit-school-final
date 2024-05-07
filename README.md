@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# Edit school final project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This was the final project for my React workshop. It consisted of creating a web application with admin and user capabilities. Under the hood I used Vite, Zustand, Tailwind, React and all of it is looking nice thanks to Shadcn's UI components, and it is all mobile frendly.
 
-Currently, two official plugins are available:
+As far as data goes it is fetched from a local json server with pseudorandom delay on the fetches on the frontend. All of the data is pulled once and stored in Zustand store and all of the crow operations refresh the said store.
+This would be ineffective for realistic amounts of data but for this example I decided that it would be good to demonstrate working with local data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Some of the less noticable features are when in admin mode there are people listed when trying to sign up for a workshop, under workshop presenter is clickable and there is a theme switcher.
 
-## Expanding the ESLint configuration
+You can run it with:
+  -npx json-server db.json
+  -npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![Modal](https://github.com/PetarPoP/Edit-school-final/assets/47577541/8112a742-66ae-4bac-ad88-cec855c8b218)
+A modal for adding workshops
 
-- Configure the top-level `parserOptions` property like this:
+![Panel](https://github.com/PetarPoP/Edit-school-final/assets/47577541/b9797708-0e5f-4610-9cd7-bc4b419f2748)
+Workshops
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![Admin panel](https://github.com/PetarPoP/Edit-school-final/assets/47577541/635df32a-0f99-4cec-9cf3-96d5dc44b5fa)
+Admin panel
